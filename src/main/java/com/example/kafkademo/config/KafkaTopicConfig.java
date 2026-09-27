@@ -11,10 +11,20 @@ public class KafkaTopicConfig {
 
     private final String customerTopic;
 
+    /**
+     * Creates the topic configuration using the topic name from application properties.
+     *
+     * @param customerTopic configured Kafka topic name
+     */
     public KafkaTopicConfig(@Value("${app.kafka.customer-topic}") String customerTopic) {
         this.customerTopic = customerTopic;
     }
 
+    /**
+     * Defines the Kafka topic used for customer messages.
+     *
+     * @return a topic with one partition and one replica
+     */
     @Bean
     public NewTopic customerTopic() {
         return TopicBuilder

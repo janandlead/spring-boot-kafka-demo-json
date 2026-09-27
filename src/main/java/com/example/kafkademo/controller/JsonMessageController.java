@@ -14,10 +14,21 @@ public class JsonMessageController {
 
     private final JsonKafkaProducer kafkaProducer;
 
+    /**
+     * Creates the controller with its Kafka producer dependency.
+     *
+     * @param kafkaProducer service used to publish customer messages
+     */
     public JsonMessageController(JsonKafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
     }
 
+    /**
+     * Publishes a customer received from an HTTP POST request.
+     *
+     * @param customer customer parsed from the request JSON body
+     * @return confirmation response after the message is submitted to Kafka
+     */
     @PostMapping("/publish-customer")
     public ResponseEntity<String> publishCustomer(@RequestBody Customer customer) {
         kafkaProducer.sendMessage(customer);
